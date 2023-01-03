@@ -14,24 +14,30 @@ def createTable():
 
 
 #inserting elements 
-def insertRows(Anime):
+def insertRows(tableName,Anime):   
+    insertQuery = """INSERT INTO %s values(?,?,?,?)"""%(tableName)
     cur.executemany("insert into AnimeWishList values(?,?,?,?)",Anime)
-    return  readTable()
+    return  readTable(tableName)
 #Creating test data for DB.
 Anime = [('DBZ' , 'shonen', 'JAP', 1996), ('Naruto',  'shonen', 'jap', 1998)]
 #inserting elements 
 
 #read 
-def readTable():
-    for row in cur.execute("select * from AnimeWishList"):
+def readTable(TableName):
+    selectQuery = """SELECT * FROM %s"""%(TableName)
+    for row in cur.execute(selectQuery):
         print(row)
 
 
 Anime = [('DBZ' , 'shonen', 'JAP', 1996), ('Naruto',  'shonen', 'jap', 1998)]
 createTable()
-insertRows(Anime)
+insertRows('AnimeWishList',Anime)
+readTable('AnimeWishList')
 con.commit()
 con.close()
+name = "siddharth"
+row = """siddharth %s"""%(name)
+print(row)
 #inserting elements 
 
 #update 
