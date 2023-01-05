@@ -1,33 +1,34 @@
+""" module is providing functions to run sqlite using python"""
 import sqlite3
 
-
-class anime:
+class Anime:
+    """Class representing an Anime entity"""
     table_name = "AnimeWishList"
 
-    def connect(commit=False):
+    def connect():
+        """Connect with the Database"""
         con = sqlite3.connect("testAnime.db")
         return con
-    
-    #adding rows
-    def adding(newRow):
-        con = anime.connect()
+
+    def adding(new_row):
+        """Inserting Anime entries to the table AnimeWishList"""
+        con = Anime.connect()
         cur = con.cursor()
-        insertQuery = cur.execute("INSERT INTO AnimeWishList VALUES(?,?,?,?)", newRow)
+        cur.execute("INSERT INTO AnimeWishList VALUES(?,?,?,?)", new_row)
         con.commit()
-    
-    #read 
+
     def read():
-        con = anime.connect()
+        """Reading through the table AnimeWishList"""
+        con = Anime.connect()
         cur = con.cursor()
-        selectQuery = "SELECT * FROM %s"%(anime.table_name)
-        return cur.execute(selectQuery)
-           
+        select_query = f"SELECT * FROM {Anime.table_name}"
+        #select_query = "SELECT * FROM %s"%(Anime.table_name)
+        return cur.execute(select_query)
+
     def print():
+        """looking at the table AnimeWishList"""
         table = []
-  
-        for each in anime.read():
+        for each in Anime.read():
             table.append(each)
             print (each)
         return table
-
- 
